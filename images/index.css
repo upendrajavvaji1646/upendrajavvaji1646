@@ -1,0 +1,208 @@
+*{
+    box-sizing: border-box;
+}
+html{
+    min-height: 100vh;
+}
+body{
+    margin: 0;
+    background: radial-gradient(#9d5900,#3D2200);
+}
+.page-title{
+    color: #FF6D00;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    font-weight: normal;
+    text-align: center;
+    font-size: 6em;
+    text-transform: uppercase;
+}
+.buttons{
+	justify-content: center;
+	text-align: center;
+}
+.buttons a{
+    margin-right: 100px;
+    color: #fff;
+    text-decoration: none;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    font-size: 20px;
+    padding: 10px;
+    border: 1px solid #000;
+    border-radius: 30px;
+}
+.buttons a:nth-child(4){
+    margin-right: 0px;
+}
+
+.buttons a:hover{
+    background-color: #fff;
+    color: #9d5900;
+    border: 1px solid #9d5900;
+}
+
+.overlay-text{
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    justify-content: center;
+    align-items: center;
+    z-index: 100;
+    color: #FF6D00;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    text-transform: uppercase;
+    cursor: pointer;
+    text-align: center;
+}
+
+.small{
+    font-size: .3em;
+}
+
+.overlay-text.visible{
+    display: flex;
+    flex-direction: column;
+    animation: overlay-grow 500ms forwards;
+}
+
+@keyframes overlay-grow{
+    from{
+        background-color: rgba(0, 0, 0, 0);
+        font-size: 0;
+    }
+    to{
+        background-color: rgba(0, 0, 0, 0.8);
+        font-size: 10em;
+    }
+}
+
+.rules{
+    /* display: none; */
+    position: fixed;
+    top: 270px;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    justify-content: center;
+    align-items: center;
+    margin: 20px;
+    z-index: 100;
+    color: #FF6D00;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    text-transform: uppercase;
+    cursor: pointer;
+    /* padding-top: 50px; */
+    background-color: rgba(0, 0, 0, 0.8);
+
+}
+
+.rules ul{
+    padding-left: 120px;
+    max-width: 90%;
+    font-size: 20px;
+}
+
+.rulestitle{
+    font-size: 3em;
+    padding: 0;
+}
+
+.rules p{
+    padding-left: 100px;
+    font-size: 25px;
+    font-weight: bolder;
+}
+
+
+.game-info-container{
+    grid-column: 1/-1;
+    display: flex;
+    justify-content: space-between;
+}
+.game-info{
+    color: #FFBB89;
+    font-size: 2em;
+}
+.game-container{
+    display: grid;
+    grid-template-columns: repeat(2,auto);
+    grid-gap: 50px;
+    margin: 50px;
+    justify-content: center;
+}
+.card{
+    /* position: relative; */
+    /* background-color: black; */
+    height: 175px;
+    width: 125px;
+    border-radius: 12px;
+    border-width: 3px;
+    border-style: solid;
+    background-color: #fefefe27;
+}
+.card:nth-child(2){
+    margin-right: 250px;
+
+}
+
+.card-face{
+    /* position: absolute; */
+    width: 100%;
+    height: 100%;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+    /* border: 5px solid black; */
+    backface-visibility: hidden;
+    border-radius: 12px;
+    border-width: 3px;
+    border-style: solid;
+}
+
+.card-back{
+    background-color: black;
+    border-color: #201751;
+    transition: transform 500ms ease-in-out;
+}
+
+.back-img{
+    transform: scale(1);
+    cursor: pointer;
+}
+.card-back:hover .back-img{
+    transform: scale(1.05);
+}
+
+.card-front{
+    background-color: #672424;
+    border-color: #201751;
+    /* justify-content: center; */
+    transition: all 500ms ease-in-out;
+}
+.card-value{
+    width: 120px;
+    top: 0;
+    left: 0;
+    transform: translate(0%,15%);
+    /* transform: scale(1); */
+    cursor: pointer;
+    transition: all 500ms ease-in-out;
+}
+.card-front:hover .card-value{
+    width: 125px;
+}
+.active{
+    display: none;
+}
+.result{
+    justify-content: center;
+    text-align: center;
+    margin-top: 20px;
+}
+.result p{
+    font-size: 25px;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    color: rgb(4, 247, 4);
+}
