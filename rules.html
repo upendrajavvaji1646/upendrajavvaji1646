@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rules</title>
+    <link rel="stylesheet" href="css/index.css">
+</head>
+<body>
+    <h1 class="page-title">Card Game</h1>
+    <div class="buttons">
+        <a href="index.php" class="">Game</a>
+        <a href="rules.html" class="">Rules</a>
+        <a href="leaderboard.php" class="">Leaderboard</a>
+        <a href="logout.php" class="">Logout</a>
+    </div>
+    
+
+    <div id="start" class="overlay-text" onclick="remove(this.id)">
+        click to start
+    </div>
+    <div id="gameover" class="overlay-text" onclick="remove(this.id)">
+        Game Over <br>
+        you got bomb
+        <span class="small">Click to restart</span>
+    </div>
+    <div id="victory" class="overlay-text" onclick="remove(this.id)">
+        Victory
+        <span class="small">Click to restart</span>
+    </div>
+    <div class="rules">
+        <h1 class="page-title rulestitle">Rules</h1>
+        <ul>
+            <li>If cat card occured then the card will be removed from the deck.</li>
+            <li>If bomb card occured then you will loose the game.</li>
+            <li>If defuse card occured then the card will be removed and this card will automatically used in further if any bomb card occurs and continues the game.</li>
+            <li>If shuffle card occured then the deck will filled with another set of cards and the game restarts....</li>
+        </ul>
+
+        <p>The player has to remove all the cards from deck and clears the deck to win</p>
+    </div>
+</body>
+</html>

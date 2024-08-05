@@ -1,0 +1,82 @@
+<script>
+        function myfun(){
+
+            <?php
+
+                $sql="select * from game where username='$user'";
+                $result=$conn->query($sql);
+                $points="";
+                $decksize="";
+                $array="";
+                $currentposition="";
+                $defuser="";
+                while($row=$result->fetch_assoc()){
+                    
+                    $points= $row['points'];
+                    $array= $row['array'];
+                    $decksize= $row['decksize'];
+                    $currentposition= $row['currentposition'];
+                    $defuser= $row['defuser'];
+                    $opencard= $row['opencard'];
+                    
+                }
+            ?>
+
+            var decksize=document.getElementById("deck-size").innerHTML;
+            var open="";
+            var position= <?php echo $currentposition; ?>;
+            console.log(position);
+
+            if(position===1){
+                open="cat";
+                <?php 
+                    update($points, $array, $decksize-1, $currentposition+1, $defuser, "cat", $user, $conn); 
+                ?>
+            }else if(position===2){
+                open="bomb";
+
+                <?php
+                    if($defuser>0){
+                        update($points, $array, $decksize-1, $currentposition+1, $defuser-1, "bomb", $user, $conn);
+                    }
+                    else if($defuser==0){
+                        echo "
+                            var result=document.getElementById('result');
+                            result.innerHTML='You Losse!';
+                            document.getElementById('deck-size').innerHTML=0;
+                            var back=document.getElementById('card-back');
+                            back.classList.add('active');
+                        ";
+                        $a=[1,2,3,4];
+                        $array="";
+                        for($i=0;$i<5;$i+=1){
+                            $index=array_rand($a,1);
+                            $array = $array . $a[$index];
+                        }
+                        update($points, $array, 0, 0, 0, "NA", $user, $conn);
+                    }
+                ?>
+            }else if(position===3){
+                open="defuse";
+                <?php
+                    update($points, $array, $decksize-1, $currentposition+1, $defuser+1, "defuse", $user, $conn);
+                ?>
+            }else{
+                open="shuffle";
+                <?php
+                    $a=[1,2,3,4];
+                    $array="";
+                    for($i=0;$i<5;$i+=1){
+                        $index=array_rand($a,1);
+                        $array = $array . $a[$index];
+                    }
+                    update($points, $array, 5, 0, $defuser, "shuffle", $user, $conn);
+                ?>
+            }
+
+
+            var cardValue=document.getElementById("card-value");
+            cardValue.src="images/"+open+".png";
+
+        }
+    </script>

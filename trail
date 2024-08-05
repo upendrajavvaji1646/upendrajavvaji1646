@@ -1,0 +1,115 @@
+<script>
+        function myfun(){
+            var deckSize=document.getElementById("deck-size").innerHTML;
+            if(deckSize>=1){
+                document.getElementById("deck-size").innerHTML=deckSize-1;
+                var result=document.getElementById("result");
+                result.classList.add("active");
+                if(deckSize>1 && deckSize<=5){    
+                    var position = <?php echo $array[$currentposition]; ?>;
+                    var opencard="";
+                    var defuse=0;
+                    if(position==1){
+                        opencard="cat";
+                    }else if(position==2){
+                        opencard="bomb";
+                        if(defuse>0){
+                            defuse-=1;
+                        }else{
+                            deckSize=0;
+                            var result=document.getElementById("result");
+                            result.innerHTML="You Lost";
+                            result.classList.remove("active");
+                            <?php 
+                                $updateover="update game set decksize='"?> deckSize <?php "', array='' , currentposition='0' , defuser='0', opencard='NA' where username='$user' ";
+                                $overresult=$conn->query($updateover);
+                            ?>
+                        }
+                    }else if(position==3){
+                        opencard="defuse";
+                        defuse+=1;
+                    }else{
+                        opencard="shuffle";
+                    } //else
+                    var front=document.getElementById("front");
+                    front.classList.remove("active");
+                    var pic=document.getElementById("card-value");
+                    pic.src="images/"+opencard+".png";
+                    deckSize-=1;
+                    <?php 
+                        $s="update game where decksize='"?> deckSize <?php "', currentposition='currentposition+1',defuser= '"?> defuse <?php "', opencard='"?> opencard <?php "' where username='$user'";
+                        $r=$conn->query($s);
+                    ?>
+                }
+            } // if decksize>=1
+            else{
+                var result=document.getElementById("result");
+                result.innerHTML="You Won";
+                result.classList.remove("active");
+                var back=document.getElementById("back");
+                back.classList.add("active");
+                var front=document.getElementById("front");
+                front.classList.remove("active");
+            } //else
+        } //fun()
+    </script>
+
+<!-- 2nd type -->
+
+<script>
+
+        function myfun(){
+            
+            var decksize = document.getElementById("deck-size").innerHTML;
+            var points = document.getElementById("points").innerHTML;
+            var array = "<?php echo $array ?>";
+            var currentposition = "<?php echo $currentposition ?>";
+            var defuser = "<?php echo $defuser ?>";
+            var opencard = "<?php echo $opencard ?>";
+            var result = document.getElementById("result");
+
+            if(decksize>=1){
+                var position = array[currentposition];
+                
+                if(position==1){
+                    opencard = "cat";
+                    decksize-=1;
+                }else if(position == 2){
+                    opencard = "bomb";
+                    if(defuser>0){
+                        decksize-=1;
+                    }else{
+                        result.innerHTML= "You Lost";
+                        result.style.color="red";
+                        result.classList.remove("active");
+                        decksize=5;
+                        array=<?php echo create_array(); ?>;
+                    }
+                }else if(position == 3){
+                    opencard = "defuse";
+                    defuser+=1;
+                }else if(position == 4){
+                    opencard = "shuffle";
+                    decksize = 5;
+                    array=<?php echo create_array(); ?>;
+
+                }
+
+               if(decksize==0){
+                    result.innerHTML= "You Won";
+                    result.style.color="green";
+                    result.classList.remove("active");
+                    decksize=5;
+                    array=<?php echo create_array(); ?>;
+               }
+               console.log(decksize);
+               document.getElementById("deck-size").innerHTML=decksize;
+               document.getElementById("points").innerHTML=points;
+               document.getElementById("card-value").src = "images/"+ opencard +".png";
+
+
+            }
+
+        }
+
+    </script>
